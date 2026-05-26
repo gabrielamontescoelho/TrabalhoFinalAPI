@@ -18,7 +18,9 @@ import br.com.serratec.trabalhofinalapi.dto.HistoricoRequestDTO;
 import br.com.serratec.trabalhofinalapi.dto.RelatorioOficinaDTO;
 import br.com.serratec.trabalhofinalapi.model.HistoricoManutencao;
 import br.com.serratec.trabalhofinalapi.service.HistoricoManutencaoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Histórico de Manutenção", description = "Endpoints para histórico de serviços e relatórios da oficina")
 @RestController
 @RequestMapping("/historicos")
 public class HistoricoManutencaoController {

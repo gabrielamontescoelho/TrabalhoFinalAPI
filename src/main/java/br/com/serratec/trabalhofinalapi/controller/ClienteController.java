@@ -21,9 +21,11 @@ import br.com.serratec.trabalhofinalapi.dto.ClienteRequestDto;
 import br.com.serratec.trabalhofinalapi.dto.ClienteResponseDto;
 import br.com.serratec.trabalhofinalapi.model.Cliente;
 import br.com.serratec.trabalhofinalapi.service.ClienteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-
+@Tag(name = "Clientes", description = "Endpoints para cadastro, edição, consulta e exclusão de clientes")
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -37,6 +39,7 @@ public class ClienteController {
     }
 
     @GetMapping
+    @Operation(summary = "Listar clientes com paginação", description = "Retorna uma lista paginada de clientes")
     public Page<Cliente> listarPorPagina(
             @PageableDefault(size = 5, page = 0, sort= "nome") Pageable pageable) {
         return service.listarPorPagina(pageable);

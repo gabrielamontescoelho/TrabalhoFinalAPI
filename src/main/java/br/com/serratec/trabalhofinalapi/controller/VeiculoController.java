@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.serratec.trabalhofinalapi.dto.VeiculoResponseDTO;
 import br.com.serratec.trabalhofinalapi.model.Veiculo;
 import br.com.serratec.trabalhofinalapi.service.VeiculoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Veículos", description = "Endpoints para cadastro, consulta e exclusão de veículos")
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoController {
@@ -27,6 +30,7 @@ public class VeiculoController {
     private VeiculoService veiculoService;
 
     @GetMapping
+    @Operation(summary = "Listar veículos com paginação", description = "Retorna uma lista paginada de veículos")
 public ResponseEntity<Page<VeiculoResponseDTO>> listarPorPagina(
         @PageableDefault(size = 5, page = 0, sort = "marca") Pageable pageable) {
     Page<VeiculoResponseDTO> pagina = veiculoService.listarPorPagina(pageable);
