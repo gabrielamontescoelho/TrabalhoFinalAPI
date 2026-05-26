@@ -1,6 +1,5 @@
 package br.com.serratec.trabalhofinalapi.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +37,8 @@ public class ClienteController {
     }
 
     @GetMapping
-    public List<Cliente> listar(){
-        return service.listar();
-    }
-
-    @GetMapping("/paginacao")
     public Page<Cliente> listarPorPagina(
-            @PageableDefault(size = 5, page = 0) Pageable pageable) {
+            @PageableDefault(size = 5, page = 0, sort= "nome") Pageable pageable) {
         return service.listarPorPagina(pageable);
     }
 

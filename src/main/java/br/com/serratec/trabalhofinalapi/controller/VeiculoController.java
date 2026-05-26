@@ -1,8 +1,10 @@
 package br.com.serratec.trabalhofinalapi.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,10 +27,12 @@ public class VeiculoController {
     private VeiculoService veiculoService;
 
     @GetMapping
-    public ResponseEntity<List<VeiculoResponseDTO>> listarTodos() {
-        List<VeiculoResponseDTO> lista = veiculoService.listarTodos();
-        return ResponseEntity.ok(lista);
-    }
+public ResponseEntity<Page<VeiculoResponseDTO>> listarPorPagina(
+        @PageableDefault(size = 5, page = 0, sort = "marca") Pageable pageable) {
+    Page<VeiculoResponseDTO> pagina = veiculoService.listarPorPagina(pageable);
+    return ResponseEntity.ok(pagina);
+}
+    
 
     @GetMapping("/{id}")
     public ResponseEntity<VeiculoResponseDTO> buscarPorId(@PathVariable Long id) {

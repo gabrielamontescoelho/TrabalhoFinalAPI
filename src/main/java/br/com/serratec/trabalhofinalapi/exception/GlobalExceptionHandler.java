@@ -14,80 +14,96 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErroResposta> tratarResourceNotFound(
-            ResourceNotFoundException ex,
-            HttpServletRequest request) {
+        @ExceptionHandler(ResourceNotFoundException.class)
+        public ResponseEntity<ErroResposta> tratarResourceNotFound(
+                        ResourceNotFoundException ex,
+                        HttpServletRequest request) {
 
-        HttpStatus status = HttpStatus.NOT_FOUND;
+                HttpStatus status = HttpStatus.NOT_FOUND;
 
-        ErroResposta erro = new ErroResposta(
-                status.value(),
-                "Recurso não encontrado",
-                ex.getMessage(),
-                request.getRequestURI());
+                ErroResposta erro = new ErroResposta(
+                                status.value(),
+                                "Recurso não encontrado",
+                                ex.getMessage(),
+                                request.getRequestURI());
 
-        return ResponseEntity.status(status).body(erro);
-    }
+                return ResponseEntity.status(status).body(erro);
+        }
 
-    @ExceptionHandler(RegraNegocioException.class)
-    public ResponseEntity<ErroResposta> tratarRegraNegocio(
-            RegraNegocioException ex,
-            HttpServletRequest request) {
+        @ExceptionHandler(RegraNegocioException.class)
+        public ResponseEntity<ErroResposta> tratarRegraNegocio(
+                        RegraNegocioException ex,
+                        HttpServletRequest request) {
 
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+                HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        ErroResposta erro = new ErroResposta(
-                status.value(),
-                "Erro de regra de negócio",
-                ex.getMessage(),
-                request.getRequestURI());
+                ErroResposta erro = new ErroResposta(
+                                status.value(),
+                                "Erro de regra de negócio",
+                                ex.getMessage(),
+                                request.getRequestURI());
 
-        return ResponseEntity.status(status).body(erro);
-    }
+                return ResponseEntity.status(status).body(erro);
+        }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErroResposta> tratarErroValidacao(
-            MethodArgumentNotValidException ex,
-            HttpServletRequest request) {
+        @ExceptionHandler(MethodArgumentNotValidException.class)
+        public ResponseEntity<ErroResposta> tratarErroValidacao(
+                        MethodArgumentNotValidException ex,
+                        HttpServletRequest request) {
 
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+                HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        List<CampoErroResposta> campos = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(this::converterCampoErro)
-                .toList();
+                List<CampoErroResposta> campos = ex.getBindingResult()
+                                .getFieldErrors()
+                                .stream()
+                                .map(this::converterCampoErro)
+                                .toList();
 
-        ErroResposta erro = new ErroResposta(
-                status.value(),
-                "Erro de validação",
-                "Existem campos inválidos na requisição",
-                request.getRequestURI(),
-                campos);
+                ErroResposta erro = new ErroResposta(
+                                status.value(),
+                                "Erro de validação",
+                                "Existem campos inválidos na requisição",
+                                request.getRequestURI(),
+                                campos);
 
-        return ResponseEntity.status(status).body(erro);
-    }
+                return ResponseEntity.status(status).body(erro);
+        }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErroResposta> tratarErroGenerico(
-            Exception ex,
-            HttpServletRequest request) {
+        @ExceptionHandler(EnderecoException.class)
+        public ResponseEntity<ErroResposta> tratarEnderecoException(
+                        EnderecoException ex,
+                        HttpServletRequest request) {
 
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+                HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        ErroResposta erro = new ErroResposta(
-                status.value(),
-                "Erro interno do servidor",
-                "Ocorreu um erro inesperado",
-                request.getRequestURI());
+                ErroResposta erro = new ErroResposta(
+                                status.value(),
+                                "Erro ao consultar endereço",
+                                ex.getMessage(),
+                                request.getRequestURI());
 
-        return ResponseEntity.status(status).body(erro);
-    }
+                return ResponseEntity.status(status).body(erro);
+        }
 
-    private CampoErroResposta converterCampoErro(FieldError fieldError) {
-        return new CampoErroResposta(
-                fieldError.getField(),
-                fieldError.getDefaultMessage());
-    }
+        @ExceptionHandler(Exception.class)
+        public ResponseEntity<ErroResposta> tratarErroGenerico(
+                        Exception ex,
+                        HttpServletRequest request) {
+
+                HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+                ErroResposta erro = new ErroResposta(
+                                status.value(),
+                                "Erro interno do servidor",
+                                "Ocorreu um erro inesperado",
+                                request.getRequestURI());
+
+                return ResponseEntity.status(status).body(erro);
+        }
+
+        private CampoErroResposta converterCampoErro(FieldError fieldError) {
+                return new CampoErroResposta(
+                                fieldError.getField(),
+                                fieldError.getDefaultMessage());
+        }
 }
