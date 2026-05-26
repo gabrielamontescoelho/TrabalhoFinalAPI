@@ -3,7 +3,10 @@ package br.com.serratec.trabalhofinalapi.service;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.serratec.trabalhofinalapi.config.MailConfig;
@@ -116,5 +119,9 @@ public class ClienteService {
 
     public void deletar(Long id) {
         repository.deleteById(id);
+    }
+
+    public Page<Cliente> listarPorPagina(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }
