@@ -70,7 +70,7 @@ public class Veiculo {
         this.modelo = modelo;
     }
 
-    public Integer getAnos() {
+    public Integer getAno() {
         return ano;
     }
 

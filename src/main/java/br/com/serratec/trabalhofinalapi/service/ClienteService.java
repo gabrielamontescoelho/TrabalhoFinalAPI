@@ -1,6 +1,5 @@
 package br.com.serratec.trabalhofinalapi.service;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -76,10 +75,6 @@ public class ClienteService {
         return new ClienteResponseDto(clienteSalvo);
 
         
-    }
-
-    public List<Cliente> listar() {
-        return repository.findAll();
     }
 
     public Optional<Cliente> buscarPorId(Long id) {

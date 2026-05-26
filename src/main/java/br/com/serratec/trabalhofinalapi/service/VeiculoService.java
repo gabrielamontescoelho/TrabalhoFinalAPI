@@ -1,5 +1,6 @@
 package br.com.serratec.trabalhofinalapi.service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,6 +23,11 @@ public class VeiculoService {
         return veiculos.stream()
                 .map(this::converterParaDTO)
                 .collect(Collectors.toList());
+    }
+    
+    public Page<VeiculoResponseDTO> listarPorPagina(Pageable pageable) {
+    return veiculoRepository.findAll(pageable)
+            .map(this::converterParaDTO);
     }
 
     public VeiculoResponseDTO buscarPorId(Long id) {
