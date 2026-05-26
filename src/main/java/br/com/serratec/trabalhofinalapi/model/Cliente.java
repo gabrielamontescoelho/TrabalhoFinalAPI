@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -19,7 +20,6 @@ public class Cliente {
     private String email;
     private String telefone;
     private String cpf;
-    private String cep;
 
     @ManyToOne
     @JoinColumn(name = "id_endereco")
@@ -61,13 +61,7 @@ public class Cliente {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    public String getCep() {
-        return cep;
-    }
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
     
     
 }
+
