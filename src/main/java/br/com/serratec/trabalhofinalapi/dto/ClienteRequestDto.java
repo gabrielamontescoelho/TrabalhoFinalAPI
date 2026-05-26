@@ -31,7 +31,7 @@ public record ClienteRequestDto(
                 cliente.getEmail(),
                 cliente.getTelefone(),
                 cliente.getCpf(),
-                cliente.getCep());
+                cliente.getEndereco().getCep());
     }
 
 }
