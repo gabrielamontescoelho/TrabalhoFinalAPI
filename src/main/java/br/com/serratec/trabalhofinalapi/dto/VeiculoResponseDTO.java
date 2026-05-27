@@ -7,18 +7,18 @@ public class VeiculoResponseDTO {
     private String modelo;
     private Integer ano;
     private String cor;
-    private ProprietarioDTO proprietario; 
+    private Long clienteId;
 
     public VeiculoResponseDTO() {}
 
-    public VeiculoResponseDTO(Long id, String placa, String marca, String modelo, Integer ano, String cor, ProprietarioDTO proprietario) {
+    public VeiculoResponseDTO(Long id, String placa, String marca, String modelo, Integer ano, String cor, Long clienteId) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
         this.cor = cor;
-        this.proprietario = proprietario;
+        this.clienteId = clienteId;
     }
 
     public Long getId() { return id; }
@@ -39,6 +39,6 @@ public class VeiculoResponseDTO {
     public String getCor() { return cor; }
     public void setCor(String cor) { this.cor = cor; }
 
-    public ProprietarioDTO getProprietario() { return proprietario; }
-    public void setProprietario(ProprietarioDTO proprietario) { this.proprietario = proprietario; }
+    public Long getClienteId() { return clienteId; }
+    public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
 }
