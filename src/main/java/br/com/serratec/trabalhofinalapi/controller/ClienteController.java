@@ -33,6 +33,7 @@ public class ClienteController {
     private ClienteService service;
 
     @PostMapping
+    @Operation(summary = "Cadastrar cliente", description = "Adiciona um novo cliente ao sistema")  
     @ResponseStatus(HttpStatus.CREATED)
     public ClienteResponseDto inserir(@Valid @RequestBody ClienteRequestDto dto){
         return service.inserir(dto);
@@ -46,16 +47,19 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar cliente por ID", description = "Retorna os detalhes de um cliente específico pelo seu ID")
     public Optional<Cliente> buscarPorId(@PathVariable Long id){
         return service.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Editar cliente", description = "Atualiza os dados de um cliente existente pelo seu ID")   
     public ClienteResponseDto editar(@PathVariable Long id,@Valid @RequestBody ClienteRequestDto dto){
         return service.editar(id, dto);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Excluir cliente", description = "Remove um cliente do sistema pelo seu ID")
     public void deletar(@PathVariable Long id){
         service.deletar(id);
     }
