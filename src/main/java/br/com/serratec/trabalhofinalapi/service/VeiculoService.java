@@ -1,16 +1,17 @@
 package br.com.serratec.trabalhofinalapi.service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import br.com.serratec.trabalhofinalapi.dto.ProprietarioDTO;
+
 import br.com.serratec.trabalhofinalapi.dto.VeiculoResponseDTO;
+import br.com.serratec.trabalhofinalapi.exception.ResourceNotFoundException;
 import br.com.serratec.trabalhofinalapi.model.Veiculo;
 import br.com.serratec.trabalhofinalapi.repository.VeiculoRepository;
-import br.com.serratec.trabalhofinalapi.exception.ResourceNotFoundException;
 
 @Service
 public class VeiculoService {
@@ -49,17 +50,12 @@ public class VeiculoService {
     }
 
     private VeiculoResponseDTO converterParaDTO(Veiculo veiculo) {
-        ProprietarioDTO propDTO = null;
+        Long clienteId = null; 
         
-        
-        if (veiculo.getCliente() != null) {
-            propDTO = new ProprietarioDTO(
-                veiculo.getCliente().getId(),
-                "Nome Provisório do Cliente", 
-                "email@teste.com",
-                "(24) 99999-9999"
-            );
+       if (veiculo.getCliente() != null) {
+            clienteId = veiculo.getCliente().getId();
         }
+        
 
         return new VeiculoResponseDTO(
             veiculo.getId(),
@@ -68,7 +64,7 @@ public class VeiculoService {
             veiculo.getModelo(),
             veiculo.getAno(),
             veiculo.getCor(),
-            propDTO
+            clienteId
         );
     }
 }
