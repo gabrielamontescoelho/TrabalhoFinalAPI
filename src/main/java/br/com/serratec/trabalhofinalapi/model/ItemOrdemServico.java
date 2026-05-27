@@ -1,8 +1,6 @@
 package br.com.serratec.trabalhofinalapi.model;
 
 import java.math.BigDecimal;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,9 +21,9 @@ public class ItemOrdemServico {
     @JoinColumn(name = "id_ordem_servico")
     private OrdemServico ordemServico;
 
-    // colocar o relacionament com servico dps
-    @Column(name = "servico_id")
-    private Long servicoId;
+    @ManyToOne
+    @JoinColumn(name = "id_servico", nullable = false)
+    private Servico servico;
 
     private Integer quantidade;
     private BigDecimal valorServico;
@@ -35,11 +33,11 @@ public class ItemOrdemServico {
     public ItemOrdemServico() {
     }
 
-    public ItemOrdemServico(Long id, OrdemServico ordemServico, Long servicoId, Integer quantidade,
+    public ItemOrdemServico(Long id, OrdemServico ordemServico, Servico servico, Integer quantidade,
             BigDecimal valorServico, BigDecimal desconto, BigDecimal subtotal) {
         this.id = id;
         this.ordemServico = ordemServico;
-        this.servicoId = servicoId;
+        this.servico = servico;
         this.quantidade = quantidade;
         this.valorServico = valorServico;
         this.desconto = desconto;
@@ -62,20 +60,20 @@ public class ItemOrdemServico {
         this.ordemServico = ordemServico;
     }
 
-    public Long getServicoId() {
-        return servicoId;
+    public Servico getServico() {
+        return servico;
     }
 
-    public void setServicoId(Long servicoId) {
-        this.servicoId = servicoId;
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
 
-    public Integer getQuantiidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantiidade(Integer quantiidade) {
-        this.quantidade = quantiidade;
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 
     public BigDecimal getValorServico() {
