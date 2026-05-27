@@ -21,9 +21,11 @@ import br.com.serratec.trabalhofinalapi.dto.ClienteRequestDto;
 import br.com.serratec.trabalhofinalapi.dto.ClienteResponseDto;
 import br.com.serratec.trabalhofinalapi.model.Cliente;
 import br.com.serratec.trabalhofinalapi.service.ClienteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-
+@Tag(name = "Clientes", description = "Endpoints para cadastro, edição, consulta e exclusão de clientes")
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -31,28 +33,33 @@ public class ClienteController {
     private ClienteService service;
 
     @PostMapping
+    @Operation(summary = "Cadastrar cliente", description = "Adiciona um novo cliente ao sistema")  
     @ResponseStatus(HttpStatus.CREATED)
     public ClienteResponseDto inserir(@Valid @RequestBody ClienteRequestDto dto){
         return service.inserir(dto);
     }
 
     @GetMapping
+    @Operation(summary = "Listar clientes com paginação", description = "Retorna uma lista paginada de clientes")
     public Page<Cliente> listarPorPagina(
             @PageableDefault(size = 5, page = 0, sort= "nome") Pageable pageable) {
         return service.listarPorPagina(pageable);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar cliente por ID", description = "Retorna os detalhes de um cliente específico pelo seu ID")
     public Optional<Cliente> buscarPorId(@PathVariable Long id){
         return service.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Editar cliente", description = "Atualiza os dados de um cliente existente pelo seu ID")   
     public ClienteResponseDto editar(@PathVariable Long id,@Valid @RequestBody ClienteRequestDto dto){
         return service.editar(id, dto);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Excluir cliente", description = "Remove um cliente do sistema pelo seu ID")
     public void deletar(@PathVariable Long id){
         service.deletar(id);
     }

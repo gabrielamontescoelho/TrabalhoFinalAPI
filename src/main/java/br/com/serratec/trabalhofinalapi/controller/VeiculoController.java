@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.serratec.trabalhofinalapi.dto.VeiculoResponseDTO;
 import br.com.serratec.trabalhofinalapi.model.Veiculo;
 import br.com.serratec.trabalhofinalapi.service.VeiculoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Veículos", description = "Endpoints para cadastro, consulta e exclusão de veículos")
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoController {
@@ -27,6 +30,7 @@ public class VeiculoController {
     private VeiculoService veiculoService;
 
     @GetMapping
+    @Operation(summary = "Listar veículos com paginação", description = "Retorna uma lista paginada de veículos")
 public ResponseEntity<Page<VeiculoResponseDTO>> listarPorPagina(
         @PageableDefault(size = 5, page = 0, sort = "marca") Pageable pageable) {
     Page<VeiculoResponseDTO> pagina = veiculoService.listarPorPagina(pageable);
@@ -35,18 +39,21 @@ public ResponseEntity<Page<VeiculoResponseDTO>> listarPorPagina(
     
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar veículo por ID", description = "Retorna os detalhes de um veículo específico pelo seu ID")
     public ResponseEntity<VeiculoResponseDTO> buscarPorId(@PathVariable Long id) {
         VeiculoResponseDTO veiculoDTO = veiculoService.buscarPorId(id);
         return ResponseEntity.ok(veiculoDTO);
     }
 
     @PostMapping
+    @Operation(summary = "Cadastrar veículo", description = "Adiciona um novo veículo ao sistema")
     public ResponseEntity<VeiculoResponseDTO> cadastrar(@RequestBody Veiculo veiculo) {
         VeiculoResponseDTO novoVeiculo = veiculoService.salvar(veiculo);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoVeiculo);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Excluir veículo", description = "Remove um veículo do sistema pelo seu ID")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         veiculoService.deletar(id);
         return ResponseEntity.noContent().build();
