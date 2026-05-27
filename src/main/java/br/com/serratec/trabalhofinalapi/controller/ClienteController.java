@@ -39,7 +39,7 @@ public class ClienteController {
         return service.inserir(dto);
     }
 
-    @GetMapping
+    @GetMapping("/paginacao")
     @Operation(summary = "Listar clientes com paginação", description = "Retorna uma lista paginada de clientes")
     public Page<Cliente> listarPorPagina(
             @PageableDefault(size = 5, page = 0, sort= "nome") Pageable pageable) {

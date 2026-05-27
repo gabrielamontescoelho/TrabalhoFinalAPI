@@ -29,7 +29,7 @@ public class VeiculoController {
     @Autowired
     private VeiculoService veiculoService;
 
-    @GetMapping
+    @GetMapping("/paginacao")
     @Operation(summary = "Listar veículos com paginação", description = "Retorna uma lista paginada de veículos")
 public ResponseEntity<Page<VeiculoResponseDTO>> listarPorPagina(
         @PageableDefault(size = 5, page = 0, sort = "marca") Pageable pageable) {

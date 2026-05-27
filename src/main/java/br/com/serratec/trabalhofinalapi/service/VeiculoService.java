@@ -50,13 +50,6 @@ public class VeiculoService {
     }
 
     private VeiculoResponseDTO converterParaDTO(Veiculo veiculo) {
-        Long clienteId = null; 
-        
-       if (veiculo.getCliente() != null) {
-            clienteId = veiculo.getCliente().getId();
-        }
-        
-
         return new VeiculoResponseDTO(
             veiculo.getId(),
             veiculo.getPlaca(),
@@ -64,7 +57,10 @@ public class VeiculoService {
             veiculo.getModelo(),
             veiculo.getAno(),
             veiculo.getCor(),
-            clienteId
+            veiculo.getCliente().getId(),
+            veiculo.getCliente().getNome(),
+            veiculo.getCliente().getEmail(),
+            veiculo.getCliente().getTelefone()
         );
     }
 }
