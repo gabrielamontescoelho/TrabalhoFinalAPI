@@ -101,6 +101,7 @@ Extensão robusta focada no armazenamento histórico de intervenções mecânica
    http://localhost:8080/swagger-ui/index.html
 
 5. Incluir Funcionalidades Individuais
+   
    Para testar a branch da Nathália:
    git checkout parte-individual-nathalia
 
