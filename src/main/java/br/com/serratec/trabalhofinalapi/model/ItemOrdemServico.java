@@ -26,7 +26,6 @@ public class ItemOrdemServico {
     private Servico servico;
 
     private Integer quantidade;
-    private BigDecimal valorServico;
     private BigDecimal desconto;
     private BigDecimal subtotal;
 
@@ -34,12 +33,11 @@ public class ItemOrdemServico {
     }
 
     public ItemOrdemServico(Long id, OrdemServico ordemServico, Servico servico, Integer quantidade,
-            BigDecimal valorServico, BigDecimal desconto, BigDecimal subtotal) {
+            BigDecimal desconto, BigDecimal subtotal) {
         this.id = id;
         this.ordemServico = ordemServico;
         this.servico = servico;
         this.quantidade = quantidade;
-        this.valorServico = valorServico;
         this.desconto = desconto;
         this.subtotal = subtotal;
     }
@@ -76,14 +74,6 @@ public class ItemOrdemServico {
         this.quantidade = quantidade;
     }
 
-    public BigDecimal getValorServico() {
-        return valorServico;
-    }
-
-    public void setValorServico(BigDecimal valorServico) {
-        this.valorServico = valorServico;
-    }
-
     public BigDecimal getDesconto() {
         return desconto;
     }
@@ -93,7 +83,14 @@ public class ItemOrdemServico {
     }
 
     public BigDecimal getSubtotal() {
-        return subtotal;
+        BigDecimal descontoItem = (this.desconto == null) ? BigDecimal.ZERO : this.desconto;
+
+        this.subtotal = this.servico.getValor()
+                .multiply(BigDecimal.valueOf(this.quantidade))
+                .subtract(descontoItem);
+
+        return this.subtotal;
+
     }
 
     public void setSubtotal(BigDecimal subtotal) {

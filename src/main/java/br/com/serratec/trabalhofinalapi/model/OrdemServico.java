@@ -1,8 +1,10 @@
 package br.com.serratec.trabalhofinalapi.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import br.com.serratec.trabalhofinalapi.enums.StatusOrdemServico;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -32,8 +34,10 @@ public class OrdemServico {
     @Enumerated(EnumType.STRING)
     private StatusOrdemServico status;
 
-    @OneToMany(mappedBy = "ordemServico")
+    @OneToMany(mappedBy = "ordemServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemOrdemServico> itens;
+
+    private BigDecimal valorTotal;
 
     public OrdemServico() {
     }
@@ -65,6 +69,23 @@ public class OrdemServico {
 
     public Veiculo getVeiculo() {
         return veiculo;
+    }
+
+    public BigDecimal getValorTotal() {
+        BigDecimal soma = BigDecimal.ZERO;
+
+        if (this.itens != null) {
+            for (ItemOrdemServico itemOrdemServico : this.itens) {
+                soma = soma.add(itemOrdemServico.getSubtotal());
+            }
+        }
+
+        this.valorTotal = soma;
+        return this.valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public void setVeiculo(Veiculo veiculo) {

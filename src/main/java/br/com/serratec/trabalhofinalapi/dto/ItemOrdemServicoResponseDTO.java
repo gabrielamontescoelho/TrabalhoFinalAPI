@@ -6,10 +6,8 @@ public record ItemOrdemServicoResponseDTO(
         Long id,
         Long servicoId,
         Integer quantidade,
-        BigDecimal valorServico,
         BigDecimal desconto,
         BigDecimal subtotal
-
 ) {
 
 }
