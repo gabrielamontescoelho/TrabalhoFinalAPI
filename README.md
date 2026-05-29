@@ -114,6 +114,9 @@ Extensão robusta focada no armazenamento histórico de intervenções mecânica
    Para testar a branch do Lucas:
    git checkout lucasindividual
 
+   Para testar a branch do Pedro:
+   git checkout parte-individual-pedro
+
 
 
 		
