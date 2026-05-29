@@ -37,6 +37,9 @@ public class OrdemServico {
     @OneToMany(mappedBy = "ordemServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemOrdemServico> itens;
 
+    @OneToMany(mappedBy = "ordemServico", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<ItemPecaOrdemServico> itensPeca;
+
     private BigDecimal valorTotal;
 
     public OrdemServico() {
@@ -79,6 +82,11 @@ public class OrdemServico {
                 soma = soma.add(itemOrdemServico.getSubtotal());
             }
         }
+        if (this.itensPeca != null) {
+            for (ItemPecaOrdemServico itemPecaOrdemServico : this.itensPeca) {
+                soma = soma.add(itemPecaOrdemServico.getSubtotal());
+            }
+        }               
 
         this.valorTotal = soma;
         return this.valorTotal;
@@ -107,5 +115,11 @@ public class OrdemServico {
     public void setItens(List<ItemOrdemServico> itens) {
         this.itens = itens;
     }
+    public List<ItemPecaOrdemServico> getItensPeca() {
+    return itensPeca;
+}
 
+    public void setItensPeca(List<ItemPecaOrdemServico> itensPeca) {
+    this.itensPeca = itensPeca;
+}
 }

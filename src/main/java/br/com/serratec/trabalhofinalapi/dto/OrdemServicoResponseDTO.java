@@ -11,7 +11,8 @@ public record OrdemServicoResponseDTO(
     BigDecimal valorTotal,       
     ClienteResponseDto cliente,
     VeiculoResponseDTO veiculo,
-    List<ItemOrdemServicoResponseDTO> itens
+    List<ItemOrdemServicoResponseDTO> itens,
+    List<ItemPecaOrdemServicoResponseDTO> itensPeca
 ) {
 
 }

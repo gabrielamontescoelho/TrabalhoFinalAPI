@@ -3,6 +3,7 @@ package br.com.serratec.trabalhofinalapi.dto;
 import java.util.List;
 import br.com.serratec.trabalhofinalapi.enums.StatusOrdemServico;
 import br.com.serratec.trabalhofinalapi.model.ItemOrdemServico;
+import br.com.serratec.trabalhofinalapi.model.ItemPecaOrdemServico;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +19,11 @@ public record OrdemServicoRequestDTO(
 
     @NotEmpty(message = "Insira pelo menos um serviço")
     @Valid
-    List<ItemOrdemServico> itens
+    List<ItemOrdemServico> itens,
+
+    @Valid
+    List<ItemPecaOrdemServico> itensPeca
+
 ) {
     public OrdemServicoRequestDTO {
         if (status == null) {
