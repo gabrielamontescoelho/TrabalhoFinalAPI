@@ -14,11 +14,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ordem_servico")
 public class OrdemServico {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,9 +39,13 @@ public class OrdemServico {
     @OneToMany(mappedBy = "ordemServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemOrdemServico> itens;
 
-    @OneToMany(mappedBy = "ordemServico", cascade = CascadeType.ALL, orphanRemoval = true)
-private List<ItemPecaOrdemServico> itensPeca;
 
+ 
+
+ 
+
+    
+ main
     private BigDecimal valorTotal;
 
     public OrdemServico() {
@@ -47,6 +53,7 @@ private List<ItemPecaOrdemServico> itensPeca;
 
     public OrdemServico(Long id, Cliente cliente, Veiculo veiculo, StatusOrdemServico status,
             List<ItemOrdemServico> itens) {
+
         this.id = id;
         this.cliente = cliente;
         this.veiculo = veiculo;
@@ -75,9 +82,11 @@ private List<ItemPecaOrdemServico> itensPeca;
     }
 
     public BigDecimal getValorTotal() {
+
         BigDecimal soma = BigDecimal.ZERO;
 
         if (this.itens != null) {
+
             for (ItemOrdemServico itemOrdemServico : this.itens) {
                 soma = soma.add(itemOrdemServico.getSubtotal());
             }
@@ -89,6 +98,7 @@ private List<ItemPecaOrdemServico> itensPeca;
         }               
 
         this.valorTotal = soma;
+
         return this.valorTotal;
     }
 
@@ -123,3 +133,4 @@ private List<ItemPecaOrdemServico> itensPeca;
     this.itensPeca = itensPeca;
 }
 }
+```
