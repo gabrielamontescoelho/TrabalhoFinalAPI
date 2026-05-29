@@ -39,10 +39,13 @@ public class OrdemServico {
     @OneToMany(mappedBy = "ordemServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemOrdemServico> itens;
 
-    @OneToOne(mappedBy = "ordemServico")
-    private Avaliacao avaliacao;
+
+ 
+
+ 
 
     
+ main
     private BigDecimal valorTotal;
 
     public OrdemServico() {
@@ -88,6 +91,11 @@ public class OrdemServico {
                 soma = soma.add(itemOrdemServico.getSubtotal());
             }
         }
+        if (this.itensPeca != null) {
+            for (ItemPecaOrdemServico itemPecaOrdemServico : this.itensPeca) {
+                soma = soma.add(itemPecaOrdemServico.getSubtotal());
+            }
+        }               
 
         this.valorTotal = soma;
 
@@ -117,13 +125,12 @@ public class OrdemServico {
     public void setItens(List<ItemOrdemServico> itens) {
         this.itens = itens;
     }
+    public List<ItemPecaOrdemServico> getItensPeca() {
+    return itensPeca;
+}
 
-    public Avaliacao getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-    }
+    public void setItensPeca(List<ItemPecaOrdemServico> itensPeca) {
+    this.itensPeca = itensPeca;
+}
 }
 ```

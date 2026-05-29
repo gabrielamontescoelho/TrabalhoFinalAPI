@@ -16,6 +16,7 @@ public record OrdemServicoResponseDTO(
 
     AvaliacaoResponseDTO avaliacao
 
+>>>>>>> main
 ) {
 
 }
